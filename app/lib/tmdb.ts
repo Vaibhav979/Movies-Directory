@@ -99,3 +99,16 @@ export async function getMovieCredits(id: string) {
 
   return res.json();
 }
+
+export async function searchByKeyword(query: string) {
+  const res = await fetch(
+    `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`
+  );
+
+  if (!res.ok) {
+    throw new Error("Search failed");
+  }
+
+  const data = await res.json();
+  return data.results;
+}

@@ -6,7 +6,7 @@ import {
   getMoviesByGenre,
   getMoviesByYear,
   getMoviesByPerson,
-  searchPerson,
+  searchByKeyword,
 } from "@/lib/tmdb";
 
 type Props = {
@@ -49,11 +49,12 @@ export default async function CollectionPage({ params }: Props) {
 
   const config = COLLECTIONS[slug];
 
-  if (!config) {
-    return <p>Collection not found</p>;
-  }
+let movies = [];
+let title = "";
 
-  let movies = [];
+if (config) {
+  // ✅ Curated collections
+  title = config.title;
 
   if (config.type === "genre") {
     movies = await getMoviesByGenre(config.value);
@@ -64,15 +65,19 @@ export default async function CollectionPage({ params }: Props) {
   }
 
   if (config.type === "person") {
-  const person = await searchPerson(config.value);
-  movies = await getMoviesByPerson(person.id);
-}
+    movies = await getMoviesByPerson(config.value);
+  }
 
+} else {
+  // ✅ Treat unknown slug as search keyword
+  title = `Results for "${slug}"`;
+  movies = await searchByKeyword(slug);
+}
 
   return (
     <PageWrapper>
       <h1 className="text-4xl font-extrabold mb-6">
-        {config.title}
+        {title}
       </h1>
 
       <MovieGrid movies={movies} />
@@ -97,4 +102,6 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
     description: `Browse ${title} on MovieDB.`,
   };
 }
+
+
 
