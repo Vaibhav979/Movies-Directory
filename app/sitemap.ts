@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { getTopMovies } from "@/lib/tmdb";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://your-vercel-url.vercel.app"; // CHANGE THIS
+  const baseUrl = "https://movies-dir-iota.vercel.app/";
 
   let movieUrls: MetadataRoute.Sitemap = [];
 

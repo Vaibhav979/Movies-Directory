@@ -2,7 +2,7 @@
 
 A modern Movies & Shows Directory built with Next.js and TMDB API.
 
-Live Demo: https://your-vercel-url  
+Live Demo: https://movies-dir-iota.vercel.app/  
 GitHub Repo: https://github.com/Vaibhav979/Movies-Directory
 
 ---
